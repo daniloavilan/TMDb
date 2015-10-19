@@ -1,0 +1,71 @@
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <h2 class="panel-title">{{person.name}}</h2>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+      <!-- Profile-->
+      <div class="col-md-2 col-sm-3">
+        <p><img ng-src="http://image.tmdb.org/t/p/w185{{person.profile_path}}" class="img-responsive img-thumbnail"></p>
+        <small>
+        <ul class="list-group">
+         <li class="list-group-item">
+          <strong>Born:</strong> {{person.birthday | date : 'mediumDate'}}
+           , {{person.place_of_birth}}
+         </li>
+         <li ng-if="person.deathday" class="list-group-item">
+          <strong>Died:</strong> {{person.deathday | date : 'mediumDate'}}
+         </li>
+         <li ng-if="person.homepage" class="list-group-item">
+          <strong>Site:</strong>
+          <a href="{{person.homepage}}">{{person.homepage}}</a>
+         </li>
+        </ul>
+        </small>
+      </div><!-- End Profile-->
+      
+      <div class="col-md-10 col-sm-9">
+        <!-- Biography -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Biography</h3>
+          </div>
+          <div class="panel-body">
+            <p>{{person.biography}}</p>
+          </div>
+        </div><!-- End Biography-->
+        
+        <!-- Filmography -->
+        <div class="panel panel-default">          
+
+          <div class="panel-heading">
+            <h3 class="panel-title">Filmography</h3>
+          </div>
+          
+          <div class="row panel-body">                
+            <div class="thumbnailSlide">
+              <div ng-repeat="movie in movies | filter: {poster_path:''} | orderBy: '-release_date'" class="col-md-2 col-sm-3">
+                <div class="thumbnail">
+                  <a href="#/movie/{{movie.id}}">
+                  <img ng-if="movie.poster_path" ng-src="http://image.tmdb.org/t/p/w92{{movie.poster_path}}"/>
+                  </a>
+                  <div class="caption">
+                  <small>
+                    <p>({{movie.release_date| date : 'yyyy'}}) As {{movie.character}} in <a href="#/movie/{{movie.id}}">{{movie.title}}</a></p>
+                  <small>
+                  </div>
+                </div>              
+              </div>
+            </div>
+          </div>        
+
+        </div><!-- End Filmography-->
+        
+      </div>
+      
+    </div>
+  </div>
+  
+</div>

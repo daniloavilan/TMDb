@@ -1,0 +1,22 @@
+<div class="panel panel-default popular">
+
+  <div class="panel-heading">
+    <h2 class="panel-title">Popular Movies on TMDb</h2>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+      <div ng-repeat="movie in movies | filter: {poster_path:''}" class="col-md-3 col-sm-6">
+        <div class="thumbnail">
+          <a href="#/movie/{{movie.id}}">
+          <img ng-if="movie.poster_path" ng-src="http://image.tmdb.org/t/p/w185{{movie.poster_path}}"/>
+          </a>
+          <div class="caption text-center">
+            <h4>({{movie.release_date| date : 'yyyy'}}) <a href="#/movie/{{movie.id}}">{{movie.title}}</a></h4>
+          </div>
+        </div>              
+      </div>
+    </div>
+  </div>
+  
+</div>

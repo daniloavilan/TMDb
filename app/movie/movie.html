@@ -1,0 +1,95 @@
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <h2 class="panel-title">{{movie.title}} ({{movie.release_date | date : 'yyyy'}})</h2>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+      
+      <!-- Poster and Data-->
+      <div class="col-md-2 col-sm-3">
+        <p><img ng-src="http://image.tmdb.org/t/p/w185{{movie.poster_path}}" class="img-responsive img-thumbnail"></p>
+        <small>
+        <ul class="list-group">
+         <li class="list-group-item">
+          <strong>Release:</strong> {{movie.release_date | date : 'mediumDate'}}
+         </li>
+         <li class="list-group-item">
+          <strong>Budget:</strong> {{movie.budget | currency : '$' : 0}}
+         </li>
+         <li class="list-group-item">
+           <strong>Revenue:</strong> {{movie.revenue | currency : '$' : 0}}
+         </li>
+         <li class="list-group-item">
+           <p><strong>Votes <span class="badge">{{movie.vote_count}}</span></strong></p>           
+           <div class="progress">            
+            <div 
+              class="progress-bar progress-bar-success"
+              role="progressbar" 
+              aria-valuenow="{{movie.vote_average * 10}}"
+              aria-valuemin="0" aria-valuemax="100" 
+              style="width: {{movie.vote_average * 10}}%">
+              Avg: {{movie.vote_average}}
+            </div>            
+          </div>
+         </li>
+        </ul>
+        </small>
+      </div><!-- End Poster and Data-->
+      
+      <div class="col-md-10 col-sm-9">
+        <!--Overview-->
+        <div class="panel panel-default">
+          
+          <div class="panel-heading">
+            <h3 class="panel-title">Overview</h3>
+          </div>
+          
+          <div class="panel-body">
+            <blockquote ng-if="movie.tagline">
+             <p>"{{movie.tagline}}"</p>
+            </blockquote>
+            <p>{{movie.overview}}</p>
+            <div class="row" ng-if="trailer">
+              <div class="col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2">
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item" ng-src="{{getTrailerSrc()}}" allowfullscreen=""></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!--End Overview-->
+        
+        <!-- Cast -->
+        <div class="panel panel-default">          
+
+          <div class="panel-heading">
+            <h3 class="panel-title">Cast</h3>
+          </div>
+          
+          <div class="row panel-body">
+            <div class="thumbnailSlide">
+              <div ng-repeat="person in cast | filter: {profile_path:''}" class="col-md-2 col-sm-3" >
+                <div class="thumbnail">
+                  <a href="#/person/{{person.id}}">
+                    <img ng-if="person.profile_path" ng-src="http://image.tmdb.org/t/p/w92{{person.profile_path}}"/>
+                    <div class="caption">
+                  </a>
+                  <small>
+                    <p><a href="#/person/{{person.id}}">{{person.name}}</a> as {{person.character}}</p>
+                  </small>
+                  </div>
+                </div>              
+              </div>
+            </div>
+          </div>        
+
+        </div><!-- End Cast-->
+        
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
